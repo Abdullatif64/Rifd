@@ -84,7 +84,7 @@
         android:id="@+id/DescEditText"
         android:layout_width="261dp"
         android:layout_height="120dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/secondColor"
@@ -102,7 +102,9 @@
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="match_parent"
-        android:layout_height="82dp"
+        android:layout_height="85dp"
+        android:background="@drawable/confirm_button_style"
+        android:textColor="@color/secondColor"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
@@ -115,7 +117,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Contact US: 05XXXXXXXX"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/secondColor"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/confirmButton"
