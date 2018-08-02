@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     // Define GPS Tracker.
     private GpsTracker gpsTracker;
 
-    // Variables.
-    double lon, lat;
+    // Variables
+    double lon = 0, lat = 0;
     int countFilledEditTexts = 0;
     Button confirmButton;
     EditText IDEditText, phoneNumberEditText, descEditText;
@@ -44,23 +45,27 @@ public class MainActivity extends AppCompatActivity {
         phoneNumberEditText= (EditText)findViewById(R.id.phoneNumberEditText) ;
         descEditText= (EditText)findViewById(R.id.DescEditText);
 
+        setUpEditTexts();
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getLocation();
-                System.out.print(String.format("%s %s %s %f %f", IDEditText.getText(),
+                getLocation();
+                Log.d("Test", String.format("%s %s %s %f %f", IDEditText.getText(),
                         phoneNumberEditText.getText(),
                         descEditText.getText(),
                         lon, lat));
             }
         });
 
-        setUpEditTexts();
+
 
 
     }
 
-
+    /**
+     * To get GPS location.
+     */
     private void getLocation(){
         gpsTracker = new GpsTracker(MainActivity.this);
         if(gpsTracker.canGetLocation()){
@@ -68,11 +73,14 @@ public class MainActivity extends AppCompatActivity {
             double longitude = gpsTracker.getLongitude();
             lon = longitude;
             lat = latitude;
-        }else{
+        } else {
             gpsTracker.showSettingsAlert();
         }
     }
 
+    /**
+     * To set up the from edit texts.
+     */
     private void setUpEditTexts() {
         IDEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -82,17 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() != 0) {
-                    countFilledEditTexts++;
-                } else {
-                    countFilledEditTexts--;
-                }
-
-                if (countFilledEditTexts == 3) {
-                    confirmButton.setEnabled(true);
-                } else {
+                if (charSequence.toString().trim().length() == 0) {
                     confirmButton.setEnabled(false);
                 }
+
+                checkifEditTextsEmpty();
             }
 
             @Override
@@ -109,17 +111,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() != 0) {
-                    countFilledEditTexts++;
-                } else {
-                    countFilledEditTexts--;
-                }
-
-                if (countFilledEditTexts == 3) {
-                    confirmButton.setEnabled(true);
-                } else {
+                if (charSequence.toString().trim().length() == 0) {
                     confirmButton.setEnabled(false);
                 }
+
+                checkifEditTextsEmpty();
+
             }
 
             @Override
@@ -136,17 +133,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().length() != 0) {
-                    countFilledEditTexts++;
-                } else {
-                    countFilledEditTexts--;
-                }
-
-                if (countFilledEditTexts == 3) {
-                    confirmButton.setEnabled(true);
-                } else {
+                if (charSequence.toString().trim().length() == 0) {
                     confirmButton.setEnabled(false);
                 }
+
+                checkifEditTextsEmpty();
+
             }
 
             @Override
@@ -156,4 +148,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * To check if edit texts are empty.
+     */
+    private void checkifEditTextsEmpty() {
+        // Check that all edit texts are empty.
+        if (IDEditText.getText().length() != 0 &&
+                phoneNumberEditText.getText().length() != 0 &&
+                descEditText.getText().length() != 0) {
+            confirmButton.setEnabled(true);
+        }
+    }
+
 }
