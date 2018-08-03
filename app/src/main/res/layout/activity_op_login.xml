@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".OPLoginActivity">
 
 
     <com.flaviofaria.kenburnsview.KenBurnsView
@@ -40,7 +40,7 @@
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/secondColor"
         android:ems="10"
-        android:hint="Enter ID"
+        android:hint="Enter Email"
         android:inputType="number"
         android:shadowColor="@color/firstColor"
         android:shadowDx="1.2"
@@ -48,6 +48,7 @@
         android:shadowRadius="1.5"
         android:textColor="@color/secondColor"
         android:textColorHint="@color/secondColor"
+        android:textCursorDrawable="@null"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/phoneNumberEditText"
@@ -55,19 +56,17 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogoImage"
-        app:layout_constraintVertical_bias="0.137"
-        android:textCursorDrawable="@null"/>
+        app:layout_constraintVertical_bias="0.137" />
 
     <EditText
         android:id="@+id/phoneNumberEditText"
         android:layout_width="258dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="28dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:backgroundTint="@color/secondColor"
         android:ems="10"
-        android:hint="Enter Phone Number"
+        android:hint="Enter Passward"
         android:inputType="number"
         android:shadowColor="@color/firstColor"
         android:shadowDx="1.2"
@@ -75,61 +74,29 @@
         android:shadowRadius="1.5"
         android:textColor="@color/secondColor"
         android:textColorHint="@color/secondColor"
+        android:textCursorDrawable="@null"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/DescEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        android:textCursorDrawable="@null"/>
-
-    <EditText
-        android:id="@+id/DescEditText"
-        android:layout_width="261dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:backgroundTint="@color/secondColor"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="textMultiLine"
-        android:textColor="@color/secondColor"
-        android:textColorHint="@color/secondColor"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/contactUsTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textCursorDrawable="@null"/>
+        tools:layout_editor_absoluteY="292dp" />
 
     <Button
         android:id="@+id/confirmButton"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:background="@drawable/confirm_button_background_style"
-        android:text="Send"
+        android:text="Login"
         android:textColor="@color/secondColor"
+        android:onClick="onClickLogin"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/contactUsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Contact US: 05XXXXXXXX"
-        android:textColor="@color/secondColor"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/confirmButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </android.support.constraint.ConstraintLayout>

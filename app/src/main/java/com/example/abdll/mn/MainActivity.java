@@ -1,5 +1,6 @@
 package com.example.abdll.mn;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,10 +13,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     // Define GPS Tracker.
     private GpsTracker gpsTracker;
+    private RequestQueue mRequestQueue;
+    private final String TAG = "MainActivity";
+
 
     // Variables
     double lon = 0, lat = 0;
@@ -55,13 +69,56 @@ public class MainActivity extends AppCompatActivity {
                         phoneNumberEditText.getText(),
                         descEditText.getText(),
                         lon, lat));
+                // Add the request to the RequestQueue.
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(stringRequest);
+                Intent intent = new Intent(MainActivity.this, StatusActivity.class);
+                startActivity(intent);
             }
         });
 
 
 
 
+
     }
+
+
+    // Instantiate the RequestQueue.
+    String url ="http://10.0.2.2:8000/data/post.php";
+
+    // Request a string response fro=m the provided URL.
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // Display the first 500 characters of the response string.
+                    Log.d(TAG, "Response is: "+ response);
+                }
+            }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Log.d(TAG, "That didn't work!");
+        }
+
+
+    }
+    ) {
+        @Override
+        protected Map<String, String> getParams()
+        {
+            Map<String, String>  params = new HashMap<String, String>();
+            params.put("ID", String.valueOf(IDEditText.getText()));
+            params.put("phoneNumber", String.valueOf(phoneNumberEditText.getText()));
+            params.put("desc", String.valueOf(descEditText.getText()));
+            params.put("lon", lon+"");
+            params.put("lat", lat+"");
+
+            //params.put("domain", "http://itsalif.info");
+
+            return params;
+        }
+    };
 
     /**
      * To get GPS location.
